@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./index.css">
+    <title>SmartScreen</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="upper-body flex">
+            <div class="left-body posrel">
+                <div class="header-body flex">
+                    <div class="time flex">
+                        <span class="hours-mins"></span><span class="seconds"></span>
+                    </div>
+                    <div class="spotify flex">
+                        <img class="spotify-icon"
+                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Spotify_logo_without_text.svg/1024px-Spotify_logo_without_text.svg.png">
+                        <div class="spotify-song-info">
+                            <p class="m0 text-bold">Author</p>
+                            <p class="m0">Song name</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="date flex">
+                    <img class="calendar-icon"
+                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Icons8_flat_calendar.svg/1024px-Icons8_flat_calendar.svg.png">
+                    <span class="calendar-date"></span>
+                </div>
+                <div class="weather flex">
+                    <img class="weather-img" src="">
+                    <div class="weather-info"></div>
+                </div>
+                <div class="notification-zone posabs">
+                    <div class="notification flex align-center bg-instagram">
+                        <img class="notification-icon"
+                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/1024px-Instagram_logo_2016.svg.png">
+                        <div class="notification-info">
+                            <p class="notification-title m0 text-bold">Title</p>
+                            <p class="notification-text m0">Text</p>
+                        </div>
+                    </div>
+                    <div class="notification flex align-center bg-telegram">
+                        <img class="notification-icon"
+                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/1024px-Telegram_logo.svg.png">
+                        <div class="notification-info">
+                            <p class="notification-title m0 text-bold">Title</p>
+                            <p class="notification-text m0">Text</p>
+                        </div>
+                    </div>
+                    <div class="notification flex align-center bg-whatsapp">
+                        <img class="notification-icon" src="https://www.svgrepo.com/show/134581/whatsapp.svg">
+                        <div class="notification-info">
+                            <p class="notification-title m0 text-bold">Title</p>
+                            <p class="notification-text m0">Text</p>
+                        </div>
+                    </div>
+                    <div class="notification flex align-center bg-facebook">
+                        <img class="notification-icon"
+                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Facebook_F_icon.svg/512px-Facebook_F_icon.svg.png">
+                        <div class="notification-info">
+                            <p class="notification-title m0 text-bold">Title</p>
+                            <p class="notification-text m0">Text</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="right-body">
+                <div class="news line-height-1 overflow-hidden">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Scripts -->
+    <script src="./jquery-3.4.1.min.js"></script>
+    <script src="/node_modules/rss-parser/dist/rss-parser.min.js"></script>
+    <script src="./app.js"></script>
+</body>
+
+</html>

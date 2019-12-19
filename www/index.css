@@ -1,0 +1,202 @@
+
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap);
+
+html {
+    /*cursor: none;*/
+    user-select: none;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: black;
+    color: white;
+}
+
+/* -- STYLE -- */
+
+.line-height-1 {
+    line-height: 1;
+}
+
+.text-bold {
+    font-weight: bold;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-italic {
+    font-style: italic;
+}
+
+.text-color-darkgray {
+    color: darkgray;
+}
+
+.font13 {
+    font-size: 13px;
+}
+
+.flex {
+    display: flex;
+}
+
+.block {
+    display: block;
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+.m0 {
+    margin: 0;
+}
+
+.m10 {
+    margin: 10px;
+}
+
+.mt5 {
+    margin-top: 5px;
+}
+
+.pdy10 {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.pdx10 {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.align-center {
+    align-items: center;
+}
+
+.posrel {
+    position: relative;
+}
+
+.posabs {
+    position: absolute;
+}
+
+.overflow-hidden {
+    overflow: hidden;
+}
+
+/* -- /STYLE -- */
+
+.bottom-body,
+.left-body,
+.right-body {
+    width: 100%;
+}
+
+.time {
+    margin-left: 14px;
+}
+
+.time .hours-mins {
+    font-size: 100px;
+}
+
+.time .seconds {
+    font-size: 40px;
+    margin-left: 10px;
+    margin-top: 12px;
+}
+
+.weather .weather-info {
+    align-self: center;
+    font-size: 24px;
+}
+
+.weather .weather-img {
+    height: 100px;
+}
+
+.date {
+    margin-left: 15px;
+}
+
+.date .calendar-icon {
+    width: 40px;
+    height: 40px;
+}
+
+.date .calendar-date {
+    align-self: center;
+    margin-left: 10px;
+    font-size: 22px;
+}
+
+.spotify {
+    margin: 15px 20px 0 120px;
+}
+
+.spotify .spotify-icon {
+    width: 40px;
+    height: 40px;
+}
+
+.spotify .spotify-song-info {
+    min-width: 200px;
+    margin-left: 10px;
+}
+
+.news {
+    margin: 15px 10px 0 auto;
+    max-width: 340px;
+    min-width: 340px;
+    min-height: calc(100vh - 40px);
+    max-height: calc(100vh - 40px);
+    border: 1px solid white;
+    border-radius: 8px;
+}
+
+.notification-zone {
+    width: 100%;
+    margin-left: 5px;
+    bottom: 0;
+}
+
+.notification-zone .notification {
+    height: 60px;
+    min-width: 100%;
+    border-radius: 8px;
+    margin-top: 15px;
+}
+
+.bg-facebook {
+    background-color: #2c3e50;
+}
+
+.bg-whatsapp {
+    background-color: #145d33;
+}
+
+.bg-instagram {
+    background-color: #d35400;
+}
+
+.bg-telegram {
+    background-color: #1c5982;
+}
+
+.notification .notification-icon {
+    width: 40px;
+    height: 40px;
+    margin-left: 15px;
+}
+
+.notification .notification-info {
+    margin-left: 10px;
+}

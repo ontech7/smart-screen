@@ -164,6 +164,7 @@ body {
 
 .notification-zone {
     width: 100%;
+    max-height: 455px;
     margin-left: 5px;
     bottom: 0;
 }

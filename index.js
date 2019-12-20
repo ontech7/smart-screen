@@ -2,12 +2,14 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var path = require('path');
 var app = express();
+var server = require('http').createServer(app);
+var io = require('socket.io')(server);
 
 var messages = [];
 
 function checkCloneMessages(msgObj) {
     for(var i = 0; i < messages.length; i++) {
-        if(messages[i].text == msgObj.text && messages[i].title == msgObj.title && messages[i].package == msgObj.package) {
+        if(msgObj.package != 'spotify' && messages[i].text == msgObj.text && messages[i].title == msgObj.title && messages[i].package == msgObj.package) {
             return true;
         }
     }
@@ -27,18 +29,22 @@ app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname + '/www/index.html'));
 });
 
-app.get('/receivePost', function(req, res) {
+app.get('/getAllMessages', function(req, res) {
     res.send(messages);
 });
 
-app.post('/receivePost', function(req, res) {
-    if(messages.length > 50) {
-        clearAllMessage();
-    }
-    
-    if(!checkCloneMessages(req.body)) {
-        messages.push(req.body);
-    }
+io.on('connection', function(client) {
+    client.on('notification', function(data) {
+        if(messages.length > 12) {
+            clearAllMessage();
+        }
+
+        if(!checkCloneMessages(data)) {
+            messages.push(data);
+            client.broadcast.emit('notification-receive', data);
+            client.emit('notification-handshake', "[SERVER] - Notification received");
+        }
+    });
 });
 
-app.listen(3000);
+server.listen(3000);

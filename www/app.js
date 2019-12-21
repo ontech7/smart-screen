@@ -65,7 +65,7 @@ function getDayName(day) {
 function getTimeFromDate(date) {
     var _date = new Date(date),
         hours = _date.getHours(),
-        minutes = _date.getMinutes();
+        minutes = checkTime(_date.getMinutes());
 
     return hours + ":" + minutes;
 }

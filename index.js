@@ -34,16 +34,35 @@ app.get('/getAllMessages', function(req, res) {
 });
 
 io.on('connection', function(client) {
-    client.on('notification', function(data) {
+    client.on('notification-app', function(data) {
         if(messages.length > 12) {
             clearAllMessage();
         }
 
-        if(!checkCloneMessages(data)) {
+        if(!checkCloneMessages(data) || data.application == 'spotify') {
             messages.push(data);
-            client.broadcast.emit('notification-receive', data);
-            client.emit('notification-handshake', "[SERVER] - Notification received");
+            client.broadcast.emit('notification-sm', data);
+            client.emit('notification-server', "[SERVER] - Notification received");
         }
+    });
+
+    client.on('clear-notifications-app', function(data) {
+        console.log(data);
+        client.broadcast.emit('clear-notifications-sm', "[SERVER] - Clear Notifications");
+    });
+
+    client.on('connected-app', function(data) {
+        console.log(data);
+        client.emit('connected-server', '[SERVER] - Connected!');
+    });
+
+    client.on('load-news-app', function(data) {
+        client.broadcast.emit('load-news-sm', data);
+    });
+
+    client.on('disconnected-app', function(data) {
+        console.log(data);
+        client.emit('disconnected-server', '[SERVER] - Disconnected!');
     });
 });
 

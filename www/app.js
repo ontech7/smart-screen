@@ -17,10 +17,16 @@ function startTime() {
     var h = today.getHours();
     var m = today.getMinutes();
     var s = today.getSeconds();
+
+    if(h == 0 && m == 0 && (s == 0 || s == 1)) {
+        startDate();
+    }
+
     m = checkTime(m);
     s = checkTime(s);
     $('.hours-mins').text(h + ":" + m);
     $('.seconds').text(s);
+
     var t = setTimeout(startTime, 500);
 }
 
@@ -74,16 +80,16 @@ function startDate() {
     $('.calendar-date').text(dayName + " " + day + "/" + month + "/" + year);
 }
 
-function startNews() {
+function startNews(url) {
     let parser = new RSSParser();
 
-    parser.parseURL(CORS_PROXY + 'http://xml2.corriereobjects.it/rss/homepage.xml', function (err, feed) {
+    parser.parseURL(CORS_PROXY + url, function (err, feed) {
         if (err) throw err;
-        $('.news').html('');
-        $('.news').append('<p class="text-italic text-center">' + feed.title + '</p>');
+        $('.news-title').text(feed.title);
+        $('.news-zone').html('');
         for(var i = 0; i < 7; i++) {
-            $('.news').append('<hr class="m10">');
-            $('.news').append('<p class="m0 pdx10">' + feed.items[i].title + '</p><p class="m0 mt5 pdx10 font13 text-color-darkgray text-right">' + getTimeFromDate(feed.items[i].pubDate) + '</p>');
+            $('.news-zone').append('<hr class="m10 border-midnight-blue">');
+            $('.news-zone').append('<p class="m0 pdx10">' + feed.items[i].title + '</p><p class="m0 my5 pdx10 font13 text-color-darkgray text-right">' + getTimeFromDate(feed.items[i].pubDate) + '</p>');
         }
     });
 
@@ -94,5 +100,4 @@ $(function () {
     startTime();
     startWeather();
     startDate();
-    startNews();
 });

@@ -9,10 +9,10 @@
     <title>SmartScreen</title>
 </head>
 
-<body>
+<body class="overflow-hidden">
     <div class="container">
         <div class="upper-body flex">
-            <div class="left-body posrel">
+            <div class="left-body">
                 <div class="header-body flex">
                     <div class="time flex">
                         <span class="hours-mins"></span><span class="seconds"></span>
@@ -35,7 +35,7 @@
                     <img class="weather-img" src="">
                     <div class="weather-info"></div>
                 </div>
-                <div class="notification-zone overflow-hidden posabs">
+                <div class="notification-zone overflow-hidden">
                     <!--<div class="notification flex align-center bg-instagram">
                         <img class="notification-icon"
                             src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/1024px-Instagram_logo_2016.svg.png">
@@ -70,8 +70,13 @@
                 </div>
             </div>
             <div class="right-body">
-                <div class="news line-height-1 overflow-hidden">
-
+                <div class="news-box line-height-1 overflow-y-auto">
+                    <div class="pd5">
+                        <p class="news-title text-italic text-center">Connect to load news</p>
+                        <div class="news-zone">
+    
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

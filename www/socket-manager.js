@@ -8,7 +8,7 @@ var socketManager = {
 
 }
 
-socket.on('notification-receive', function(data) {
+socket.on('notification-sm', function(data) {
     console.log(data);
 
     var notificationLength = $('.notification').length;
@@ -29,6 +29,14 @@ socket.on('notification-receive', function(data) {
             '</div>' +
         '</div>');
     }
+});
+
+socket.on('clear-notifications-sm', function(){
+    $('.notification-zone').html('');
+});
+
+socket.on('load-news-sm', function(data) {
+    startNews(data);
 });
 
 socket.on('error-msg', function(data) {

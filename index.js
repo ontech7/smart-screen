@@ -53,15 +53,18 @@ io.on('connection', function(client) {
 
     client.on('connected-app', function(data) {
         console.log(data);
+        client.broadcast.emit('connected-sm', '[SERVER] - Connected!');
         client.emit('connected-server', '[SERVER] - Connected!');
     });
 
     client.on('load-news-app', function(data) {
         client.broadcast.emit('load-news-sm', data);
+        client.emit('load-news-server', '[SERVER] - News loaded!');
     });
 
     client.on('disconnected-app', function(data) {
         console.log(data);
+        client.broadcast.emit('disconnected-sm', '[SERVER] - Disconnected!');
         client.emit('disconnected-server', '[SERVER] - Disconnected!');
     });
 });

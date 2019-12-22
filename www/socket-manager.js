@@ -16,6 +16,10 @@ socket.on('notification-sm', function(data) {
     if(data.application == 'spotify') {
         $('.spotify-song-info').html('<p class="m0 text-bold">' + data.title + '</p>' +
         '<p class="m0">' + data.text + '</p>');
+
+        if($('.spotify').hasClass("hidden")) {
+            $('.spotify').removeClass("hidden");
+        }
     } else {
         if(notificationLength >= 6) {
             $('.notification').first().remove();
@@ -29,6 +33,14 @@ socket.on('notification-sm', function(data) {
             '</div>' +
         '</div>');
     }
+});
+
+socket.on('connected-sm', function(data) {
+    
+});
+
+socket.on('disconnected-sm', function(data) {
+    $('.spotify').addClass('hidden');
 });
 
 socket.on('clear-notifications-sm', function(){

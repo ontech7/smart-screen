@@ -51,6 +51,10 @@ socket.on('load-news-sm', function(data) {
     startNews(data);
 });
 
+socket.on('load-weather-sm', function(data) {
+    startWeather(data);
+});
+
 socket.on('error-msg', function(data) {
     console.log(data);
 });

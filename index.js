@@ -35,6 +35,8 @@ app.get('/getAllMessages', function(req, res) {
 
 io.on('connection', function(client) {
     client.on('notification-app', function(data) {
+        console.log('[INFO] - Notification received from: ' + data.package);
+
         if(messages.length > 12) {
             clearAllMessage();
         }
@@ -60,6 +62,11 @@ io.on('connection', function(client) {
     client.on('load-news-app', function(data) {
         client.broadcast.emit('load-news-sm', data);
         client.emit('load-news-server', '[SERVER] - News loaded!');
+    });
+
+    client.on('load-weather-app', function(data) {
+        client.broadcast.emit('load-weather-sm', data);
+        client.emit('load-weather-server', '[SERVER] - Weather loaded!');
     });
 
     client.on('disconnected-app', function(data) {

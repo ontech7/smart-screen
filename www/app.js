@@ -12,42 +12,6 @@ function checkTime(i) {
     return i;
 }
 
-function startTime() {
-    var today = new Date();
-    var h = today.getHours();
-    var m = today.getMinutes();
-    var s = today.getSeconds();
-
-    if(h == 0 && m == 0 && (s == 0 || s == 1)) {
-        startDate();
-    }
-
-    m = checkTime(m);
-    s = checkTime(s);
-    $('.hours-mins').text(h + ":" + m);
-    $('.seconds').text(s);
-
-    var t = setTimeout(startTime, 500);
-}
-
-function startWeather() {
-    $.get('http://api.openweathermap.org/data/2.5/weather?q=Brindisi,it&APPID=6e9a7d3a8d9e481bbdd14b1df103142c').done(function (data) {
-        var temp = Math.floor(data.main.temp - 273.15),
-            temp_min = Math.floor(data.main.temp_min - 273.15),
-            temp_max = Math.ceil(data.main.temp_max - 273.15),
-            humidity = data.main.humidity,
-            city = data.name,
-            weatherIcon = data.weather[0].icon;
-
-        $('.weather-img').attr('src', 'http://openweathermap.org/img/wn/' + weatherIcon + '@2x.png');
-        $('.weather-info').html("Temp: " + temp + "°C (" + temp_min + "°C - " + temp_max + "°C)<br>Umidità: " + humidity + "% - " + city);
-    }).fail(function () {
-        console.log("Failed to retrieve weather data from OpenWeatherMap");
-    });
-
-    var t = setTimeout(startWeather, 1200000);
-}
-
 function getDayName(day) {
     var weekdays = new Array(7);
 
@@ -68,6 +32,44 @@ function getTimeFromDate(date) {
         minutes = checkTime(_date.getMinutes());
 
     return hours + ":" + minutes;
+}
+
+function startTime() {
+    var today = new Date();
+    var h = today.getHours();
+    var m = today.getMinutes();
+    var s = today.getSeconds();
+
+    if(h == 0 && m == 0 && (s == 0 || s == 1)) {
+        startDate();
+    }
+
+    m = checkTime(m);
+    s = checkTime(s);
+    $('.hours-mins').text(h + ":" + m);
+    $('.seconds').text(s);
+
+    var t = setTimeout(startTime, 500);
+}
+
+function startWeather(city) {
+    $.get('http://api.openweathermap.org/data/2.5/weather?q=' + city + '&APPID=6e9a7d3a8d9e481bbdd14b1df103142c').done(function (data) {
+        var temp = Math.floor(data.main.temp - 273.15),
+            temp_min = Math.floor(data.main.temp_min - 273.15),
+            temp_max = Math.ceil(data.main.temp_max - 273.15),
+            humidity = data.main.humidity,
+            city = data.name,
+            weatherIcon = data.weather[0].icon;
+
+        $('.weather-img').attr('src', 'http://openweathermap.org/img/wn/' + weatherIcon + '@2x.png');
+        $('.weather-info').html("Temp: " + temp + "°C (" + temp_min + "°C - " + temp_max + "°C)<br>Umidità: " + humidity + "% - " + city);
+    }).fail(function () {
+        console.log("Failed to retrieve weather data from OpenWeatherMap");
+    });
+
+    var t = setTimeout(function(){
+        startWeather(city);
+    }, 1200000);
 }
 
 function startDate() {
@@ -93,11 +95,12 @@ function startNews(url) {
         }
     });
 
-    var t = setTimeout(startNews, 3600000);
+    var t = setTimeout(function() {
+        startNews(url);
+    }, 3600000);
 }
 
 $(function () {
     startTime();
-    startWeather();
     startDate();
 });

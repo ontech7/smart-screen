@@ -7,8 +7,6 @@ var socketManager = {
 }
 
 socket.on('notification-sm', function(data) {
-    console.log(data);
-
     var notificationLength = $('.notification').length;
 
     if(data.application == 'spotify') {
@@ -23,13 +21,26 @@ socket.on('notification-sm', function(data) {
             $('.notification').first().remove();
         }
 
-        $('.notification-zone').append('<div class="notification flex align-center bg-' + data.application + '">' +
+        $('.notification-zone').append('<div class="notification flex align-center bg-' + data.application + '" data-application="' + data.application + '">' +
             '<img class="notification-icon" src="' + icons[data.application] + '">' +
             '<div class="notification-info">' +
                 '<p class="notification-title m0 text-bold">' + data.title + '</p>' +
                 '<p class="notification-text m0">' + data.text + '</p>' +
             '</div>' +
         '</div>');
+    }
+});
+
+socket.on('remove-notification-sm', function(data) {
+    if(data.application == 'spotify') {
+        $('.spotify').addClass('hidden');
+    } else {
+        $('.notification').each(function() {
+            console.log($(this).data('application'));
+            if($(this).data('application') == data.application) {
+                $(this).remove();
+            }
+        });
     }
 });
 

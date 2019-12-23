@@ -56,6 +56,14 @@ io.on('connection', function (client) {
         }
     });
 
+    client.on('remove-notification-app', function(data) {
+        console.log('[INFO] - Notification to be removed: ' + data.application);
+
+        messages = [];
+        client.broadcast.emit('remove-notification-sm', data);
+        client.emit('notification-server', "[SERVER] - Notification received");
+    });
+
     client.on('clear-notifications-app', function (data) {
         console.log(data);
         client.broadcast.emit('clear-notifications-sm', "[SERVER] - Clear Notifications");

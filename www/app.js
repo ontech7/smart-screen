@@ -7,6 +7,10 @@ var icons = {
     'facebook': 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Facebook_F_icon.svg/512px-Facebook_F_icon.svg.png' 
 };
 
+var weatherTimeout,
+    newsTimeout,
+    timeTimeout;
+
 function checkTime(i) {
     if (i < 10) { i = "0" + i };  // add zero in front of numbers < 10
     return i;
@@ -49,27 +53,7 @@ function startTime() {
     $('.hours-mins').text(h + ":" + m);
     $('.seconds').text(s);
 
-    var t = setTimeout(startTime, 500);
-}
-
-function startWeather(city) {
-    $.get('http://api.openweathermap.org/data/2.5/weather?q=' + city + '&APPID=6e9a7d3a8d9e481bbdd14b1df103142c').done(function (data) {
-        var temp = Math.floor(data.main.temp - 273.15),
-            temp_min = Math.floor(data.main.temp_min - 273.15),
-            temp_max = Math.ceil(data.main.temp_max - 273.15),
-            humidity = data.main.humidity,
-            city = data.name,
-            weatherIcon = data.weather[0].icon;
-
-        $('.weather-img').attr('src', 'http://openweathermap.org/img/wn/' + weatherIcon + '@2x.png');
-        $('.weather-info').html("Temp: " + temp + "°C (" + temp_min + "°C - " + temp_max + "°C)<br>Umidità: " + humidity + "% - " + city);
-    }).fail(function () {
-        console.log("Failed to retrieve weather data from OpenWeatherMap");
-    });
-
-    var t = setTimeout(function(){
-        startWeather(city);
-    }, 1200000);
+    timeTimeout = setTimeout(startTime, 500);
 }
 
 function startDate() {
@@ -82,25 +66,73 @@ function startDate() {
     $('.calendar-date').text(dayName + " " + day + "/" + month + "/" + year);
 }
 
+function startServiceInfo() {
+    socketManager.retrieveLocalIP();
+}
+
+function startWeather(city) {
+    if(city != null) {
+
+        $.get('http://api.openweathermap.org/data/2.5/weather?q=' + city + '&APPID=6e9a7d3a8d9e481bbdd14b1df103142c').done(function (data) {
+            var temp = Math.floor(data.main.temp - 273.15),
+                temp_min = Math.floor(data.main.temp_min - 273.15),
+                temp_max = Math.ceil(data.main.temp_max - 273.15),
+                humidity = data.main.humidity,
+                city = data.name,
+                weatherIcon = data.weather[0].icon;
+
+            $('.weather-img').attr('src', 'http://openweathermap.org/img/wn/' + weatherIcon + '@2x.png');
+            $('.weather-info').html("Temp: " + temp + "°C (" + temp_min + "°C - " + temp_max + "°C)<br>Umidità: " + humidity + "% - " + city);
+
+            localStorage.setItem("weather_service", city);
+        }).fail(function () {
+            console.log("Failed to retrieve weather data from OpenWeatherMap");
+        });
+
+        weatherTimeout = setTimeout(function(){
+            startWeather(city);
+        }, 1200000);
+    }
+}
+
 function startNews(url) {
-    let parser = new RSSParser();
+    if(url != null) {
 
-    parser.parseURL(CORS_PROXY + url, function (err, feed) {
-        if (err) throw err;
-        $('.news-title').text(feed.title);
-        $('.news-zone').html('');
-        for(var i = 0; i < 7; i++) {
-            $('.news-zone').append('<hr class="m10 border-midnight-blue">');
-            $('.news-zone').append('<p class="m0 pdx10">' + feed.items[i].title + '</p><p class="m0 my5 pdx10 font13 text-color-darkgray text-right">' + getTimeFromDate(feed.items[i].pubDate) + '</p>');
-        }
-    });
+        let parser = new RSSParser();
 
-    var t = setTimeout(function() {
-        startNews(url);
-    }, 3600000);
+        parser.parseURL(CORS_PROXY + url, function (err, feed) {
+            if (err) throw err;
+            $('.news-title').text(feed.title);
+            $('.news-zone').html('');
+            for(var i = 0; i < 7; i++) {
+                $('.news-zone').append('<hr class="m10 border-midnight-blue">');
+                $('.news-zone').append('<p class="m0 pdx10">' + feed.items[i].title + '</p><p class="m0 my5 pdx10 font13 text-color-darkgray text-right">' + getTimeFromDate(feed.items[i].pubDate) + '</p>');
+            }
+
+            localStorage.setItem("news_service", url);
+        });
+
+        newsTimeout = setTimeout(function() {
+            startNews(url);
+        }, 3600000);
+    }
 }
 
 $(function () {
+    var newsFeedUrl = null,
+        weatherCity = null;
+
+    if(localStorage.getItem("news_service") !== undefined) {
+        newsFeedUrl = localStorage.getItem("news_service");
+    }
+
+    if(localStorage.getItem("weather_service") !== undefined) {
+        weatherCity = localStorage.getItem("weather_service");
+    }
+
+    startServiceInfo();
     startTime();
     startDate();
+    startNews(newsFeedUrl);
+    startWeather(weatherCity);
 });

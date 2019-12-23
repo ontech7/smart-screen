@@ -38,6 +38,10 @@ body {
     color: darkgray;
 }
 
+.font12 {
+    font-size: 12px;
+}
+
 .font13 {
     font-size: 13px;
 }
@@ -229,4 +233,10 @@ body {
 
 .notification .notification-info {
     margin-left: 10px;
+}
+
+.service-info-box {
+    margin: 15px 10px 0 auto;
+    text-align: right;
+    font-size: 12px;
 }

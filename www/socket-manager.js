@@ -1,11 +1,9 @@
-var playerUsername = '';
-var roomNumber = '';
-var roomMaster = false;
-
 var socket = io('http://localhost:3000/');
 
 var socketManager = {
-
+    retrieveLocalIP: function() {
+        socket.emit('local-ip-app', "[INFO] - Requested Local IP");
+    }
 }
 
 socket.on('notification-sm', function(data) {
@@ -36,11 +34,23 @@ socket.on('notification-sm', function(data) {
 });
 
 socket.on('connected-sm', function(data) {
-    
+    $('.connection-info').text('Connected');
 });
 
 socket.on('disconnected-sm', function(data) {
+    $('.connection-info').text('Disconnected');
+    $('.device-info').addClass('hidden');
     $('.spotify').addClass('hidden');
+});
+
+socket.on('local-ip-sm', function(data) {
+    $('.ip-info').text(data);
+    $('.general-info').removeClass('hidden');
+});
+
+socket.on('device-model-sm', function(data) {
+    $('.device-info').text(data);
+    $('.device-info').removeClass('hidden');
 });
 
 socket.on('clear-notifications-sm', function(){
@@ -48,10 +58,14 @@ socket.on('clear-notifications-sm', function(){
 });
 
 socket.on('load-news-sm', function(data) {
+    clearTimeout(newsTimeout);
+
     startNews(data);
 });
 
 socket.on('load-weather-sm', function(data) {
+    clearTimeout(weatherTimeout);
+
     startWeather(data);
 });
 

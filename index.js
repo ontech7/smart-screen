@@ -36,6 +36,12 @@ app.get('/getAllMessages', function (req, res) {
 });
 
 io.on('connection', function (client) {
+    client.on('disconnect', function(data) {
+        // In case connection drop, closure of the app, etc.
+        client.broadcast.emit('disconnected-sm', '[SERVER] - Disconnected!');
+        client.emit('disconnected-server', '[SERVER] - Disconnected!');
+    });
+
     client.on('notification-app', function (data) {
         console.log('[INFO] - Notification received from: ' + data.application);
 

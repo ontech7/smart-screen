@@ -203,10 +203,11 @@ body {
 }
 
 .notification-zone .notification {
-    height: 60px;
+    min-height: 40px;
     min-width: 100%;
     border-radius: 8px;
     margin-top: 13px;
+    padding: 10px 0;
 }
 
 .bg-facebook {
@@ -226,8 +227,8 @@ body {
 }
 
 .notification .notification-icon {
-    width: 40px;
-    height: 40px;
+    min-width: 40px;
+    min-height: 40px;
     margin-left: 15px;
 }
 

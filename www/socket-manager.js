@@ -17,7 +17,7 @@ socket.on('notification-sm', function(data) {
             $('.spotify').removeClass("hidden");
         }
     } else {
-        if(notificationLength >= 6) {
+        if(notificationLength > 12) {
             $('.notification').first().remove();
         }
 
@@ -28,6 +28,8 @@ socket.on('notification-sm', function(data) {
                 '<p class="notification-text m0">' + data.text + '</p>' +
             '</div>' +
         '</div>');
+
+        scrollToBottom('notification-zone');
     }
 });
 

@@ -11,6 +11,11 @@ var weatherTimeout,
     newsTimeout,
     timeTimeout;
 
+function scrollToBottom (id) {
+    var div = document.getElementById(id);
+    div.scrollTop = div.scrollHeight - div.clientHeight;
+}
+
 function checkTime(i) {
     if (i < 10) { i = "0" + i };  // add zero in front of numbers < 10
     return i;
@@ -104,7 +109,7 @@ function startNews(url) {
             if (err) throw err;
             $('.news-title').text(feed.title);
             $('.news-zone').html('');
-            for(var i = 0; i < 7; i++) {
+            for(var i = 0; i < 10; i++) {
                 $('.news-zone').append('<hr class="m10 border-midnight-blue">');
                 $('.news-zone').append('<p class="m0 pdx10">' + feed.items[i].title + '</p><p class="m0 my5 pdx10 font13 text-color-darkgray text-right">' + getTimeFromDate(feed.items[i].pubDate) + '</p>');
             }

@@ -97,10 +97,12 @@ socket.on('device-model-sm', function(data) {
 
 socket.on('enable-mouse-pointer-sm', function(data) {
     $('html').removeClass('cursor-none');
+    location.reload(true);
 });
 
 socket.on('disable-mouse-pointer-sm', function(data) {
     $('html').addClass('cursor-none');
+    location.reload(true);
 });
 
 socket.on('clear-notifications-sm', function(){

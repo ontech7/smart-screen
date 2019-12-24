@@ -75,6 +75,7 @@ function startDate() {
 
 function startServiceInfo() {
     socketManager.retrieveLocalIP();
+    socketManager.retrieveConnectionInfo();
 }
 
 function startWeather(city, appID) {

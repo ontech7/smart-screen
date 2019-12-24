@@ -3,6 +3,9 @@ var socket = io('http://localhost:3000/');
 var socketManager = {
     retrieveLocalIP: function() {
         socket.emit('local-ip-app', "[INFO] - Requested Local IP");
+    },
+    retrieveConnectionInfo: function() {
+        socket.emit('retrieve-connection-info-app', "[INFO] - Requested Connection");
     }
 }
 
@@ -79,9 +82,25 @@ socket.on('local-ip-sm', function(data) {
     $('.general-info').removeClass('hidden');
 });
 
+socket.on('retrieve-connection-info-sm', function(data) {
+    $('.connection-info').text(data.connected ? 'Connected' : 'Disconnected');
+    if(data.device) {
+        $('.device-info').text(data.device);
+        $('.device-info').removeClass('hidden');
+    }
+});
+
 socket.on('device-model-sm', function(data) {
     $('.device-info').text(data);
     $('.device-info').removeClass('hidden');
+});
+
+socket.on('enable-mouse-pointer-sm', function(data) {
+    $('html').removeClass('cursor-none');
+});
+
+socket.on('disable-mouse-pointer-sm', function(data) {
+    $('html').addClass('cursor-none');
 });
 
 socket.on('clear-notifications-sm', function(){

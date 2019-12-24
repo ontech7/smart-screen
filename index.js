@@ -7,6 +7,11 @@ var io = require('socket.io')(server);
 var os = require('os');
 var ifaces = os.networkInterfaces();
 
+var connectionInfo = {
+    connected: false,
+    device: ''
+}
+
 var messages = [];
 
 var filters = ['spotify', 'telecom', 'incallui', 'mms'];
@@ -73,6 +78,7 @@ io.on('connection', function (client) {
 
     client.on('connected-app', function (data) {
         console.log(data);
+        connectionInfo.connected = true;
         client.broadcast.emit('connected-sm', '[SERVER] - Connected!');
         client.emit('connected-server', '[SERVER] - Connected!');
     });
@@ -88,14 +94,29 @@ io.on('connection', function (client) {
     });
 
     client.on('device-model-app', function(data) {
+        connectionInfo.connected = true;
+        connectionInfo.device = data;
         client.broadcast.emit('device-model-sm', data);
         client.emit('device-model-server', '[SERVER] - Device Model received');
     });
 
     client.on('disconnected-app', function (data) {
-        console.log(data);
+        connectionInfo.connected = false;
+        connectionInfo.device = '';
         client.broadcast.emit('disconnected-sm', '[SERVER] - Disconnected!');
         client.emit('disconnected-server', '[SERVER] - Disconnected!');
+    });
+
+    client.on('enable-mouse-pointer-app', function(data) {
+        console.log('[INFO] - Enabling Mouse Pointer');
+        client.broadcast.emit('enable-mouse-pointer-sm', '[SERVER] - Enabling Mouse Pointer!');
+        client.emit('enable-mouse-pointer-server', '[SERVER] - Enabling Mouse Pointer!');
+    });
+
+    client.on('disable-mouse-pointer-app', function(data) {
+        console.log('[INFO] - Disabling Mouse Pointer');
+        client.broadcast.emit('disable-mouse-pointer-sm', '[SERVER] - Disabling Mouse Pointer!');
+        client.emit('disable-mouse-pointer-server', '[SERVER] - Disabling Mouse Pointer!');
     });
 
     client.on('local-ip-app', function(data) {
@@ -110,6 +131,12 @@ io.on('connection', function (client) {
                 client.emit('local-ip-sm', iface.address);
             });
         });
+    });
+
+    client.on('retrieve-connection-info-app', function(data) {
+        console.log('[INFO] - Retrieving Connection Info');
+        console.log(connectionInfo);
+        client.emit('retrieve-connection-info-sm', connectionInfo);
     });
 });
 

@@ -1,12 +1,12 @@
 const CORS_PROXY = "https://cors-anywhere.herokuapp.com/";
 
 var icons = {
-    'whatsapp': 'https://www.svgrepo.com/show/134581/whatsapp.svg',
-    'telegram': 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/1024px-Telegram_logo.svg.png',
-    'instagram': 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/1024px-Instagram_logo_2016.svg.png',
-    'facebook': 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Facebook_F_icon.svg/512px-Facebook_F_icon.svg.png',
-    'mms': 'https://image.flaticon.com/icons/png/512/425/425877.png',
-    'telecom': 'http://www.urbanleagueneb.org/wp-content/uploads/2016/10/Phone-Icon-2.png'
+    'whatsapp': './images/notification-icons/whatsapp.svg',
+    'telegram': './images/notification-icons/telegram.svg',
+    'instagram': './images/notification-icons/instagram.svg',
+    'facebook': './images/notification-icons/facebook.svg',
+    'mms': './images/notification-icons/mms.png',
+    'telecom': './images/notification-icons/telecom.png'
 };
 
 var weatherTimeout,
@@ -77,10 +77,10 @@ function startServiceInfo() {
     socketManager.retrieveLocalIP();
 }
 
-function startWeather(city) {
+function startWeather(city, appID) {
     if(city != null) {
 
-        $.get('http://api.openweathermap.org/data/2.5/weather?q=' + city + '&APPID=6e9a7d3a8d9e481bbdd14b1df103142c').done(function (data) {
+        $.get('http://api.openweathermap.org/data/2.5/weather?q=' + city + '&APPID=' + appID).done(function (data) {
             var temp = Math.floor(data.main.temp - 273.15),
                 temp_min = Math.floor(data.main.temp_min - 273.15),
                 temp_max = Math.ceil(data.main.temp_max - 273.15),
@@ -88,7 +88,7 @@ function startWeather(city) {
                 city = data.name,
                 weatherIcon = data.weather[0].icon;
 
-            $('.weather-img').attr('src', 'http://openweathermap.org/img/wn/' + weatherIcon + '@2x.png');
+            $('.weather-img').attr('src', './images/weather-icons/' + weatherIcon + '.png');
             $('.weather-info').html("Temp: " + temp + "°C (" + temp_min + "°C - " + temp_max + "°C)<br>Umidità: " + humidity + "% - " + city);
 
             localStorage.setItem("weather_service", city);
@@ -97,7 +97,7 @@ function startWeather(city) {
         });
 
         weatherTimeout = setTimeout(function(){
-            startWeather(city);
+            startWeather(city, appID);
         }, 1200000);
     }
 }
@@ -141,5 +141,5 @@ $(function () {
     startTime();
     startDate();
     startNews(newsFeedUrl);
-    startWeather(weatherCity);
+    startWeather(weatherCity, '6e9a7d3a8d9e481bbdd14b1df103142c');
 });

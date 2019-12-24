@@ -97,7 +97,7 @@ socket.on('load-news-sm', function(data) {
 socket.on('load-weather-sm', function(data) {
     clearTimeout(weatherTimeout);
 
-    startWeather(data);
+    startWeather(data, '6e9a7d3a8d9e481bbdd14b1df103142c');
 });
 
 socket.on('error-msg', function(data) {

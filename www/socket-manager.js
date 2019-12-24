@@ -57,7 +57,6 @@ socket.on('remove-notification-sm', function(data) {
         $('.spotify').addClass('hidden');
     } else {
         $('.notification').each(function() {
-            console.log($(this).data('application'));
             if($(this).data('application') == data.application) {
                 $(this).remove();
             }

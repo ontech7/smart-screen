@@ -290,6 +290,10 @@ body {
     background-color: #384450;
 }
 
+.bg-mms {
+    background-color: #F79F1F;
+}
+
 .notification .notification-icon {
     min-width: 40px;
     min-height: 40px;

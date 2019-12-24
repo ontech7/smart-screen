@@ -9,7 +9,7 @@ var ifaces = os.networkInterfaces();
 
 var messages = [];
 
-var filters = ['spotify', 'telecom', 'incallui'];
+var filters = ['spotify', 'telecom', 'incallui', 'mms'];
 
 function checkCloneMessages(msgObj) {
     for (var i = 0; i < messages.length; i++) {

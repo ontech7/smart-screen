@@ -9,6 +9,8 @@ var ifaces = os.networkInterfaces();
 
 var messages = [];
 
+var filters = ['spotify', 'telecom', 'incallui'];
+
 function checkCloneMessages(msgObj) {
     for (var i = 0; i < messages.length; i++) {
         if (msgObj.package != 'spotify' && messages[i].text == msgObj.text && messages[i].title == msgObj.title && messages[i].package == msgObj.package) {
@@ -49,7 +51,7 @@ io.on('connection', function (client) {
             clearAllMessage();
         }
 
-        if (!checkCloneMessages(data) || data.application == 'spotify') {
+        if (!checkCloneMessages(data) || filters.includes(data.application)) {
             messages.push(data);
             client.broadcast.emit('notification-sm', data);
             client.emit('notification-server', "[SERVER] - Notification received");

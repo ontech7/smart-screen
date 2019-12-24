@@ -9,9 +9,20 @@ var socketManager = {
 socket.on('notification-sm', function(data) {
     var notificationLength = $('.notification').length;
 
-    if(data.application == 'spotify') {
-        $('.spotify-song-info').html('<p class="m0 text-bold">' + data.title + '</p>' +
-        '<p class="m0">' + data.text + '</p>');
+    if(data.application == 'incallui') {
+        $('.calling-title').text(data.title);
+        $('.calling-text').text(data.text);
+
+        $('.left-body').addClass('hidden');
+        $('.right-body').addClass('hidden');
+        $('html').addClass('height-100');
+        $('body').addClass('height-100-body');
+        $('.container').addClass('height-100 flex center-center');
+        $('.now-calling').removeClass('hidden');
+        $('.calling-icon').addClass('blink');
+    } else if(data.application == 'spotify') {
+        $('.spotify-soundtrack').text(data.title);
+        $('.spotify-author').text(data.text);
 
         if($('.spotify').hasClass("hidden")) {
             $('.spotify').removeClass("hidden");
@@ -21,7 +32,7 @@ socket.on('notification-sm', function(data) {
             $('.notification').first().remove();
         }
 
-        $('.notification-zone').append('<div class="notification flex align-center bg-' + data.application + '" data-application="' + data.application + '">' +
+        $('.notification-zone').append('<div class="notification notification-blink flex align-center bg-' + data.application + '" data-application="' + data.application + '">' +
             '<img class="notification-icon" src="' + icons[data.application] + '">' +
             '<div class="notification-info">' +
                 '<p class="notification-title m0 text-bold">' + data.title + '</p>' +
@@ -29,12 +40,20 @@ socket.on('notification-sm', function(data) {
             '</div>' +
         '</div>');
 
-        scrollToBottom('notification-zone');
+        scrollToBottom('.notification-zone');
     }
 });
 
 socket.on('remove-notification-sm', function(data) {
-    if(data.application == 'spotify') {
+    if(data.application == 'incallui') {
+        $('.now-calling').addClass('hidden');
+        $('.calling-icon').removeClass('blink');
+        $('html').removeClass('height-100');
+        $('body').removeClass('height-100-body');
+        $('.container').removeClass('height-100 flex center-center');
+        $('.left-body').removeClass('hidden');
+        $('.right-body').removeClass('hidden');
+    } else if(data.application == 'spotify') {
         $('.spotify').addClass('hidden');
     } else {
         $('.notification').each(function() {

@@ -14,6 +14,19 @@ body {
 
 /* -- STYLE -- */
 
+.height-100 {
+    height: 100%;
+}
+
+.height-100-body {
+    height: calc(100% - 16px);
+}
+
+.center-center {
+    justify-content: center;
+    align-items: center;
+}
+
 .line-height-1 {
     line-height: 1;
 }
@@ -44,6 +57,10 @@ body {
 
 .font13 {
     font-size: 13px;
+}
+
+.font36 {
+    font-size: 36px;
 }
 
 .flex {
@@ -126,6 +143,49 @@ body {
 }
 
 /* -- /STYLE -- */
+
+/* -- ANIMATIONS -- */
+
+@keyframes blink {
+    0% {
+        opacity: 1;
+    }
+    40% {
+        opacity: 0.5;
+    }
+    50% {
+        opacity: 1;
+    }
+    60% {
+        opacity: 0.5;
+    }
+    70% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes notification-blink {
+    0% {
+        opacity: 1;
+    }
+    25% {
+        opacity: 0.5;
+    }
+    50% {
+        opacity: 1;
+    }
+    75% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* -- /ANIMATIONS -- */
 
 .bottom-body,
 .left-body,
@@ -226,9 +286,15 @@ body {
     background-color: #1c5982;
 }
 
+.bg-telecom {
+    background-color: #384450;
+}
+
 .notification .notification-icon {
     min-width: 40px;
     min-height: 40px;
+    max-width: 40px;
+    max-height: 40px;
     margin-left: 15px;
 }
 
@@ -240,4 +306,20 @@ body {
     margin: 15px 10px 0 auto;
     text-align: right;
     font-size: 12px;
+}
+
+.now-calling .calling-icon {
+    min-width: 160px;
+    min-height: 160px;
+    max-width: 160px;
+    max-height: 160px;
+    margin-bottom: 15px;
+}
+
+.blink {
+    animation: blink 1s linear infinite;
+}
+
+.notification-blink {
+    animation: notification-blink 1s linear forwards;
 }

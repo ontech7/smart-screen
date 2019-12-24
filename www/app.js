@@ -4,15 +4,16 @@ var icons = {
     'whatsapp': 'https://www.svgrepo.com/show/134581/whatsapp.svg',
     'telegram': 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/1024px-Telegram_logo.svg.png',
     'instagram': 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/1024px-Instagram_logo_2016.svg.png',
-    'facebook': 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Facebook_F_icon.svg/512px-Facebook_F_icon.svg.png' 
+    'facebook': 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Facebook_F_icon.svg/512px-Facebook_F_icon.svg.png',
+    'telecom': 'http://www.urbanleagueneb.org/wp-content/uploads/2016/10/Phone-Icon-2.png'
 };
 
 var weatherTimeout,
     newsTimeout,
     timeTimeout;
 
-function scrollToBottom (id) {
-    var div = document.getElementById(id);
+function scrollToBottom (selector) {
+    var div = document.querySelector(selector);
     div.scrollTop = div.scrollHeight - div.clientHeight;
 }
 

@@ -71,6 +71,12 @@ socket.on('connected-sm', function(data) {
     $('.connection-info').text('Connected');
 });
 
+socket.on('disconnect', function(data) {
+    $('.connection-info').text('Disconnected');
+    $('.device-info').addClass('hidden');
+    $('.spotify').addClass('hidden');
+});
+
 socket.on('disconnected-sm', function(data) {
     $('.connection-info').text('Disconnected');
     $('.device-info').addClass('hidden');

@@ -135,7 +135,6 @@ io.on('connection', function (client) {
 
     client.on('retrieve-connection-info-app', function(data) {
         console.log('[INFO] - Retrieving Connection Info');
-        console.log(connectionInfo);
         client.emit('retrieve-connection-info-sm', connectionInfo);
     });
 });

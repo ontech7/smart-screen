@@ -155,17 +155,15 @@ function createWindow () {
     win = new BrowserWindow({
       width: 1024,
       height: 768,
+      fullscreen: true,
+      autoHideMenuBar: true,
       webPreferences: {
-        nodeIntegration: true,
-        fullscreen: true
+        nodeIntegration: true
       }
     })
   
     // e carica l'index.html dell'app.
     win.loadFile('www/index.html')
-  
-    // Apre il Pannello degli Strumenti di Sviluppo.
-    win.webContents.openDevTools()
   
     // Emesso quando la finestra viene chiusa.
     win.on('closed', () => {

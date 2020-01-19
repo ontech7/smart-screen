@@ -1,11 +1,14 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var path = require('path');
-var app = express();
-var server = require('http').createServer(app);
+var appExpress = express();
+var server = require('http').createServer(appExpress);
 var io = require('socket.io')(server);
 var os = require('os');
 var ifaces = os.networkInterfaces();
+let Parser = require('rss-parser');
+let parser = new Parser();
+const { app, BrowserWindow } = require('electron')
 
 var connectionInfo = {
     connected: false,
@@ -15,6 +18,8 @@ var connectionInfo = {
 var messages = [];
 
 var filters = ['spotify', 'telecom', 'incallui', 'mms'];
+
+let win;
 
 function checkCloneMessages(msgObj) {
     for (var i = 0; i < messages.length; i++) {
@@ -29,16 +34,16 @@ function clearAllMessage() {
     messages = [];
 }
 
-app.use(express.static(path.join(__dirname)));
-app.use("/", express.static(__dirname + '/www'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+appExpress.use(express.static(path.join(__dirname)));
+appExpress.use("/", express.static(__dirname + '/www'));
+appExpress.use(bodyParser.json());
+appExpress.use(bodyParser.urlencoded({ extended: false }));
 
-app.get('/', function (req, res) {
+appExpress.get('/', function (req, res) {
     res.sendFile(path.join(__dirname + '/www/index.html'));
 });
 
-app.get('/getAllMessages', function (req, res) {
+appExpress.get('/getAllMessages', function (req, res) {
     res.send(messages);
 });
 
@@ -84,8 +89,14 @@ io.on('connection', function (client) {
     });
 
     client.on('load-news-app', function (data) {
-        client.broadcast.emit('load-news-sm', data);
-        client.emit('load-news-server', '[SERVER] - News loaded!');
+        client.broadcast.emit('save-news-sm', data);
+        client.emit('save-news-sm', data);
+        parser.parseURL(data, function(err, feed) {
+            if(err) throw err;
+            client.broadcast.emit('load-news-sm', feed);
+            client.emit('load-news-sm', feed);
+            client.emit('load-news-server', '[SERVER] - News loaded!');
+        }); 
     });
 
     client.on('load-weather-app', function (data) {
@@ -138,5 +149,53 @@ io.on('connection', function (client) {
         client.emit('retrieve-connection-info-sm', connectionInfo);
     });
 });
+
+function createWindow () {
+    // Creazione della finestra del browser.
+    win = new BrowserWindow({
+      width: 1024,
+      height: 768,
+      webPreferences: {
+        nodeIntegration: true,
+        fullscreen: true
+      }
+    })
+  
+    // e carica l'index.html dell'app.
+    win.loadFile('www/index.html')
+  
+    // Apre il Pannello degli Strumenti di Sviluppo.
+    win.webContents.openDevTools()
+  
+    // Emesso quando la finestra viene chiusa.
+    win.on('closed', () => {
+      // Eliminiamo il riferimento dell'oggetto window;  solitamente si tiene traccia delle finestre
+      // in array se l'applicazione supporta più finestre, questo è il momento in cui 
+      // si dovrebbe eliminare l'elemento corrispondente.
+      win = null
+    })
+  }
+  
+// Questo metodo viene chiamato quando Electron ha finito
+// l'inizializzazione ed è pronto a creare le finestre browser.
+// Alcune API possono essere utilizzate solo dopo che si verifica questo evento.
+app.on('ready', createWindow)
+
+// Terminiamo l'App quando tutte le finestre vengono chiuse.
+app.on('window-all-closed', () => {
+    // Su macOS è comune che l'applicazione e la barra menù 
+    // restano attive finché l'utente non esce espressamente tramite i tasti Cmd + Q
+    if (process.platform !== 'darwin') {
+        app.quit()
+    }
+})
+
+app.on('activate', () => {
+    // Su macOS è comune ri-creare la finestra dell'app quando
+    // viene cliccata l'icona sul dock e non ci sono altre finestre aperte.
+    if (win === null) {
+        createWindow()
+    }
+})
 
 server.listen(3000);

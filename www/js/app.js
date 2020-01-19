@@ -103,25 +103,17 @@ function startWeather(city, appID) {
     }
 }
 
-function startNews(url) {
-    if(url != null) {
-
-        let parser = new RSSParser();
-
-        parser.parseURL(CORS_PROXY + url, function (err, feed) {
-            if (err) throw err;
-            $('.news-title').text(feed.title);
-            $('.news-zone').html('');
-            for(var i = 0; i < 10; i++) {
-                $('.news-zone').append('<hr class="m10 border-midnight-blue">');
-                $('.news-zone').append('<p class="m0 pdx10">' + feed.items[i].title + '</p><p class="m0 my5 pdx10 font13 text-color-darkgray text-right">' + getTimeFromDate(feed.items[i].pubDate) + '</p>');
-            }
-
-            localStorage.setItem("news_service", url);
-        });
+function startNews(feed) {
+    if(feed != null) {
+        $('.news-title').text(feed.title);
+        $('.news-zone').html('');
+        for(var i = 0; i < 10; i++) {
+            $('.news-zone').append('<hr class="m10 border-midnight-blue">');
+            $('.news-zone').append('<p class="m0 pdx10">' + feed.items[i].title + '</p><p class="m0 my5 pdx10 font13 text-color-darkgray text-right">' + getTimeFromDate(feed.items[i].pubDate) + '</p>');
+        }
 
         newsTimeout = setTimeout(function() {
-            startNews(url);
+            socket.emit('load-news-app', localStorage.getItem("news_service"));
         }, 3600000);
     }
 }
@@ -132,6 +124,7 @@ $(function () {
 
     if(localStorage.getItem("news_service") !== undefined) {
         newsFeedUrl = localStorage.getItem("news_service");
+        socket.emit('load-news-app', newsFeedUrl);
     }
 
     if(localStorage.getItem("weather_service") !== undefined) {
@@ -141,6 +134,5 @@ $(function () {
     startServiceInfo();
     startTime();
     startDate();
-    startNews(newsFeedUrl);
     startWeather(weatherCity, '6e9a7d3a8d9e481bbdd14b1df103142c');
 });

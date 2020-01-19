@@ -115,6 +115,10 @@ socket.on('clear-notifications-sm', function(){
     $('.notification-zone').html('');
 });
 
+socket.on('save-news-sm', function(data) {
+    localStorage.setItem("news_service", data);
+});
+
 socket.on('load-news-sm', function(data) {
     clearTimeout(newsTimeout);
 

@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ."
   },
-  "author": "",
+  "author": "Andrea Losavio",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",

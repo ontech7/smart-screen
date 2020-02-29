@@ -12,7 +12,7 @@ An application to show, in a minimal way, the primary information you need:
 
 # Smart Screen Mobile App
 
-To make it work properly, you'll need the [Smart Screen mobile application]()
+To make it work properly, you'll need the [Smart Screen mobile application](https://github.com/ontech7/smart-screen-app)
 
 # Run
 

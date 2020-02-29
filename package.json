@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron ."
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
   },
   "author": "",
   "license": "ISC",
@@ -18,6 +18,13 @@
     "socket.io": "^2.3.0"
   },
   "devDependencies": {
-    "electron": "^7.1.9"
+    "electron": "^7.1.9",
+    "electron-builder": "^22.2.0"
+  },
+  "build": {
+    "appId": "com.ontech7.smartscreen",
+    "win": {
+      "target": "portable"
+    }
   }
 }

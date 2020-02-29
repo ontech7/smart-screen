@@ -5,8 +5,10 @@ An application to show, in a minimal way, the primary information you need:
 - Time
 - Weather
 - Date
+- Spotify
 - News
 - Notifications (only Android)
+- Calls
 
 # Smart Screen Mobile App
 
@@ -32,9 +34,9 @@ It will run on your localhost:
 
 ----------------
 
-The local IP is on the top-right corner.
-You need to put it in the mobile application (look at **Smart Screen Mobile App** section), and click Connect. You'll hear a double fast vibration on your device, in case of successful connection.
-You must connect your devices on the same network, in order to let your device find the local IP associated to the Smart Screen application.
+The local IP is on the top-right corner.  
+You need to put it in the mobile application (look at **Smart Screen Mobile App** section), and click Connect. You'll hear a double fast vibration on your device, in case of successful connection.  
+You must connect your devices on the same network, in order to let your device find the local IP associated to the Smart Screen application.  
 
 # Sorry
 

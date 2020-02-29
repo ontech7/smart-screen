@@ -1,4 +1,5 @@
 const CORS_PROXY = "https://cors-anywhere.herokuapp.com/";
+const OPENWEATHER_API_KEY = 'your-api-key';
 
 var icons = {
     'whatsapp': './images/notification-icons/whatsapp.svg',
@@ -142,5 +143,5 @@ $(function () {
     startTime();
     startDate();
     startNews(newsFeedUrl);
-    startWeather(weatherCity, '6e9a7d3a8d9e481bbdd14b1df103142c');
+    startWeather(weatherCity, OPENWEATHER_API_KEY);
 });

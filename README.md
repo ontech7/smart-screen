@@ -22,7 +22,7 @@ You need to install all the packages first:
 
 And after that, you'll need to run it:
 
-`node start`
+`node .`
 
 It will run on your localhost:
 

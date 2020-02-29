@@ -10,6 +10,8 @@ An application to show, in a minimal way, the primary information you need:
 - Notifications (only Android)
 - Calls
 
+![SmartScreen](https://i.imgur.com/HaAtLDi.png)
+
 # Smart Screen Mobile App
 
 To make it work properly, you'll need the [Smart Screen mobile application](https://github.com/ontech7/smart-screen-app)
@@ -32,11 +34,15 @@ It will run on your localhost:
 
 (if you want to change the PORT, go to index.js:142)
 
-----------------
+# Info
 
-The local IP is on the top-right corner.  
-You need to put it in the mobile application (look at **Smart Screen Mobile App** section), and click Connect. You'll hear a double fast vibration on your device, in case of successful connection.  
-You must connect your devices on the same network, in order to let your device find the local IP associated to the Smart Screen application.  
+*The local IP is on the top-right corner.*  
+
+*You need to put it in the mobile application (look at **Smart Screen Mobile App** section), and click Connect. You'll hear a double fast vibration on your device, in case of successful connection.*  
+
+*The device name will appear under the local IP once it's connected.*  
+
+*You must connect your devices on the same network, in order to let your device find the local IP associated to the Smart Screen application.*  
 
 # Sorry
 

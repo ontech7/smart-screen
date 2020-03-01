@@ -12,11 +12,19 @@ An application to show, in a minimal way, the primary information you need:
 
 ![SmartScreen](https://i.imgur.com/HaAtLDi.png)
 
-# Smart Screen Mobile App
+## Contents
+
+- [Smart Screen Mobile App](#smart-screen-mobile-app)
+- [Run](#run)
+- [Info](#info)
+- [Sorry](#sorry)
+- [Credits](#credits)
+
+## Smart Screen Mobile App
 
 To make it work properly, you'll need the [Smart Screen mobile application](https://github.com/ontech7/smart-screen-app)
 
-# Run
+## Run
 
 To run it, you'll need [Node.js](https://nodejs.org/) for NPM and Node itself.
 
@@ -34,7 +42,7 @@ It will run on your localhost:
 
 (if you want to change the PORT, go to index.js:142)
 
-# Info
+## Info
 
 *The local IP is on the top-right corner.*  
 
@@ -44,8 +52,12 @@ It will run on your localhost:
 
 *You must connect your devices on the same network, in order to let your device find the local IP associated to the Smart Screen application.*  
 
-# Sorry
+## Sorry
 
 The Front-end part was made pretty quickly, in order to make it work on 1024x768 resolution, because my objective was to use [this display](https://www.amazon.it/gp/product/B07K32M4LJ/ref=ppx_yo_dt_b_asin_title_o02_s00?ie=UTF8&psc=1) with a [Raspberry Pi 3B+](https://www.raspberrypi.org/products/raspberry-pi-3-model-b-plus/).
 
 It works on a 1920x1080 monitor, but perhaps with some flaws.
+
+## Credits
+
+$ Andrea Losavio (https://github.com/ontech7)
